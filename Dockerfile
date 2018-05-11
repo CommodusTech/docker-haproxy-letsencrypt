@@ -1,5 +1,7 @@
-FROM haproxy:1.7-alpine
-MAINTAINER Tecnativa <info@tecnativa.com>
+FROM haproxy:1.8-alpine
+LABEL maintainer="contact@commodus.tech"
+LABEL description="Credit to Tecnativa: https://github.com/Tecnativa/docker-haproxy-letsencrypt\
+Update to HAProxy 1.8.8 in this image"
 
 ENTRYPOINT ["/prepare-entrypoint.sh"]
 CMD haproxy -- /etc/haproxy/*.cfg
@@ -11,7 +13,7 @@ ENV PORT=80 \
     # Odoo mode special variables
     ODOO_LONGPOLLING_PORT=8072 \
     # Use `FORCE` or `REMOVE`
-    WWW_PREFIX=REMOVE \
+    WWW_PREFIX=0 \
     # Use `false` to ask for real certs
     STAGING=true \
     # Use `true` to continue on cert fetch failure
@@ -63,8 +65,8 @@ VOLUME /var/spool/cron/cronstamps /etc/letsencrypt
 # Metadata
 ARG VCS_REF
 ARG BUILD_DATE
-LABEL org.label-schema.schema-version="1.0" \
-      org.label-schema.vendor=Tecnativa \
+LABEL org.label-schema.schema-version="1.8.8" \
+      org.label-schema.vendor=CommodusTech \
       org.label-schema.build-date="$BUILD_DATE" \
       org.label-schema.vcs-ref="$VCS_REF" \
-      org.label-schema.vcs-url="https://github.com/Tecnativa/docker-haproxy-letsencrypt"
+      org.label-schema.vcs-url="https://github.com/CommodusTech/docker-haproxy-letsencrypt"
